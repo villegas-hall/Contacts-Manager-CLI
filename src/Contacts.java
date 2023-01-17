@@ -1,5 +1,3 @@
-package src;
-
 public class Contacts {
 
     private String name;
@@ -26,12 +24,12 @@ public class Contacts {
         this.phone_number = phone_number;
     }
 
-    public static void viewContacts() {
-        for (int i = 0; i < contactList.size(); i += 1) {
-
-            System.out.println((i + 1) + ": " + contactList.get(i));
-        }
-    }
+//    public static void viewContacts() {
+//        for (int i = 0; i < contactList.size(); i += 1) {
+//
+//            System.out.println((i + 1) + ": " + contactList.get(i));
+//        }
+//    }
 
     
 }
