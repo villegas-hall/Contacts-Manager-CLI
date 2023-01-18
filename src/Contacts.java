@@ -27,5 +27,8 @@ public class Contacts {
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
-}
 
+    public String toString() {
+        return this.name.toString() + " | " + this.phone_number.toString();
+    }
+}

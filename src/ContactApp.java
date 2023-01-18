@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,49 +14,67 @@ public class ContactApp {
     static Path dataDirectory = Paths.get(directory);
     static Path dataFile = Paths.get(directory, filename);
 
+
     /*reads array rather than .txt*/
     public static void showContacts(List<String> arr) {
         for (int i = 0; i < arr.size(); i += 1) {
             System.out.println((i + 1) + ": " + arr.get(i));
         }
+        System.out.print("\n");
     }
     /*reads .txt rather than the new array (if contact was added)*/
     public static List<String> readFromTxt() throws IOException {
         Path contactsPath = Paths.get("data", "contacts.txt");
-        List<String> contactsList = Files.readAllLines(contactsPath);
 
-        for (int i = 0; i < contactsList.size(); i += 1) {
-            System.out.println((i + 1) + ": " + contactsList.get(i));
-        }
-
-        return contactsList;
+        return Files.readAllLines(contactsPath);
     }
-    public static boolean addContact(String name, String number, List<Contacts> arr) throws IOException {
-        name = input.getString("Enter contact name");
-        number = input.getString("Enter contact phone number");
+    public static void addContact(List<Contacts> workingArray) {
+        /*creates new contact*/
+        String name = input.getString("Enter contact name");
+        String number = input.getString("Enter contact phone number");
         Contacts newContact = new Contacts(name, number);
+
         System.out.println("name = " + name);
         System.out.println("number = " + number);
-        System.out.println("newContact = " + newContact);
-//        Path filepath = Paths.get("data", "contacts.txt");
-//        Files.write(filepath, arr);
-        return arr.add(new Contacts(name, number));
+        System.out.println("newContact = " + newContact.toString());
+
+        /*adds new contact to contact-object list*/
+        workingArray.add(newContact);
     }
 
+    public static String searchForContact() {
 
-    public static void runCLI() {
+    }
+
+//    public static String deleteContact() {
+//
+//    }
+
+
+    public static void runCLI() throws IOException {
         boolean restart = true;
-        do {
+
+        while (restart) {
             System.out.println(
                     "1. View contacts.\n" +
-                            "2. Add a new contact.\n" +
-                            "3. Search a contact by name.\n" +
-                            "4. Delete an existing contact.\n" +
-                            "5. Exit.\n" + "Enter an option (1, 2, 3, 4 or 5):");
+                    "2. Add a new contact.\n" +
+                    "3. Search a contact by name.\n" +
+                    "4. Delete an existing contact.\n" +
+                    "5. Exit.\n");
             int userInput = input.getInt(1, 5);
 
+            List<String> workingArray = readFromTxt();
+            List<Contacts> contactArr = new ArrayList<>();
 
-        } while (restart);
+            switch (userInput) {
+                case 1 -> showContacts(workingArray);
+                case 2 -> addContact(contactArr);
+//                case 3 -> searchForContact();
+//                case 4 -> deleteContact();
+                case 5 -> { exitApp(); restart = false; }
+                default -> System.out.println("That isn't a valid option. Please choose again.");
+            }
+        }
     }
 
 
