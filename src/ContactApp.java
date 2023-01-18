@@ -3,7 +3,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,24 +30,35 @@ public class ContactApp {
 
         return contactsList;
     }
-    public static void addContact(List<String> arr) throws IOException {
-        String name = input.getString("Enter contact name");
-        String number = input.getString("Enter contact phone number");
+    public static boolean addContact(String name, String number, List<Contacts> arr) throws IOException {
+        name = input.getString("Enter contact name");
+        number = input.getString("Enter contact phone number");
         Contacts newContact = new Contacts(name, number);
         System.out.println("name = " + name);
         System.out.println("number = " + number);
         System.out.println("newContact = " + newContact);
 //        Path filepath = Paths.get("data", "contacts.txt");
 //        Files.write(filepath, arr);
-
-
-//        arr.add(new Contacts(name, number));
+        return arr.add(new Contacts(name, number));
     }
 
 
     public static void runCLI() {
+        boolean restart = true;
+        do {
+            System.out.println(
+                    "1. View contacts.\n" +
+                            "2. Add a new contact.\n" +
+                            "3. Search a contact by name.\n" +
+                            "4. Delete an existing contact.\n" +
+                            "5. Exit.\n" + "Enter an option (1, 2, 3, 4 or 5):");
+            int userInput = input.getInt(1, 5);
 
+
+        } while (restart);
     }
+
+
     public static void exitApp() throws IOException {
         Files.write(
                 Paths.get("data", "contacts.txt"),
@@ -56,6 +66,8 @@ public class ContactApp {
                 StandardOpenOption.APPEND
         );
     }
+
+
     public static void main(String[] args) throws IOException {
 //        Input input = new Input();
 
@@ -84,6 +96,6 @@ public class ContactApp {
 
 
 //        showContacts(contactList);
-        addContact(contactList);
+//        addContact(contactList);
     }
 }
