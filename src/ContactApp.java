@@ -66,8 +66,8 @@ public class ContactApp {
                     Contacts.addContact();
                     runCLI();
                 }
-//                case 3 -> searchForContact();
-//                case 4 -> deleteContact();
+                case 3 -> Contacts.findContact();
+                case 4 -> Contacts.deleteContact();
                 case 5 -> {
                     exitApp();
                     restart = false;
