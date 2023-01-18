@@ -38,6 +38,9 @@ public class Contacts {
     public static void showAll() throws IOException {
         List<String> contactList = Files.readAllLines(contactFile);
 
+        System.out.println("Name | Phone number\n" +
+                "---------------");
+
         for (int i = 0; i < contactList.size(); i += 1) {
             System.out.println((i + 1) + ": " + contactList.get(i));
         }
