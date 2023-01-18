@@ -4,13 +4,10 @@ import java.util.List;
 
 public class ContactTest {
     public static void main(String[] args) throws IOException {
-//        ContactApp.runCLI();
+        ContactApp.runCLI();
 
-        List<Contacts> contactArr = new ArrayList<>();
-        List<String> workingArray = ContactApp.readFromTxt();
+//        List<Contacts> contactArr = new ArrayList<>();
+//        List<String> workingArray = ContactApp.readFromTxt();
 
-        ContactApp.addContact(contactArr);
-        ContactApp.showContacts(workingArray);
-        ContactApp.exitApp();
     }
 }
