@@ -35,6 +35,15 @@ public class Contacts {
     }
 
     /// This works
+    public static void showAll() throws IOException {
+        List<String> contactList = Files.readAllLines(contactFile);
+
+        for (int i = 0; i < contactList.size(); i += 1) {
+            System.out.println((i + 1) + ": " + contactList.get(i));
+        }
+        System.out.println(' ');
+    }
+
     public static void addContact() throws IOException {
         String name = input.getString("Enter contact name");
         String number = input.getString("Enter contact phone number");
@@ -49,6 +58,35 @@ public class Contacts {
         System.out.println("newContact = " + newContact);
     }
 
+    public static void findContact() throws IOException {
+        List<String> contactList = Files.readAllLines(contactFile);
+
+        String searchInput = input.getString("Enter the name or number to be searched");
+        for (String person : contactList) {
+            if (person.toLowerCase().contains(searchInput.toLowerCase())) {
+                System.out.println("Contact: " + person);
+            } else {
+                /*how to not make this fire off 4x and after true statement*/
+                System.out.println("No such person exist in my world.\n");
+            }
+        }
+    }
+
+    public static void deleteContact() throws IOException {
+        List<String> contactList = Files.readAllLines(contactFile);
+
+        String contactToDelete = input.getString("Enter contact to delete (name/phone number)");
+        List<String> emptyList = new ArrayList<>();
+        for (String contact : contactList) {
+            if (contact.toLowerCase().contains(contactToDelete)) {
+                continue;
+            }
+            emptyList.add(contact);
+        }
+        Files.write(Paths.get("data", "contacts.txt"), emptyList);
+    }
+
+    /*bonus addContact*/
 //    public static void addContact() throws IOException {
 //        String name = input.getString("Enter contact name");
 //        String number = input.getString("Enter contact phone number");
@@ -75,44 +113,4 @@ public class Contacts {
 //                StandardOpenOption.APPEND
 //        );
 //    }
-
-    public static void showAll() throws IOException {
-        List<String> contactList = Files.readAllLines(contactFile);
-
-        for (int i = 0; i < contactList.size(); i += 1) {
-            System.out.println((i + 1) + ": " + contactList.get(i));
-        }
-        System.out.println("");
-    }
-
-
-    public static void deleteContact() throws IOException {
-        List<String> contactList = Files.readAllLines(contactFile);
-
-        String contactToDelete = input.getString("Enter contact to delete (name/phone number)");
-        List<String> emptyList = new ArrayList<>();
-        for (String contact : contactList) {
-            if (contact.toLowerCase().contains(contactToDelete)) {
-                continue;
-            }
-            emptyList.add(contact);
-        }
-        Files.write(Paths.get("data", "contacts.txt"), emptyList);
-        System.out.println("");
-    }
-
-    public static void findContact() throws IOException {
-        List<String> contactList = Files.readAllLines(contactFile);
-
-        String searchInput = input.getString("Enter the name or number to be searched");
-        for (String person : contactList) {
-            if (person.toLowerCase().contains(searchInput.toLowerCase())) {
-                System.out.println("Contact: " + person);
-//            } else {
-//                System.out.println("No such person exist in my world.");
-//            }
-            }
-        }
-    }
-
 }
