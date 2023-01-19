@@ -9,8 +9,6 @@ import java.util.List;
 
 public class ContactApp {
     static Input input = new Input();
-    static String directory = "data";
-    static String filename = "contacts.txt";
 
     public static void main(String[] args) throws IOException {
         runCLI();
@@ -36,13 +34,13 @@ public class ContactApp {
             int userInput = input.getInt(1, 5);
 
             switch (userInput) {
-                case 1 -> Contacts.showAll();
+                case 1 -> Contact.showAll();
 
-                case 2 -> Contacts.addContact();
+                case 2 -> Contact.addContact();
 
-                case 3 -> Contacts.findContact();
+                case 3 -> Contact.findContact();
 
-                case 4 -> Contacts.deleteContact();
+                case 4 -> Contact.deleteContact();
 
                 case 5 -> restart = false;
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Contacts {
+public class Contact {
 
     private String name;
     private String phoneNumber;
@@ -17,7 +17,7 @@ public class Contacts {
 
     static Input input = new Input();
 
-    public Contacts(String name, String phoneNumber) {
+    public Contact(String name, String phoneNumber) {
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
@@ -60,11 +60,11 @@ public class Contacts {
                 StandardOpenOption.APPEND
         );
 
-        Contacts newContact = new Contacts(name, formattedNumber);
+        Contact newContact = new Contact(name, formattedNumber);
         System.out.println("newContact = " + newContact);
     }
 
-    public static String findContact() throws IOException {
+    public static void findContact() throws IOException {
         List<String> contactList = Files.readAllLines(contactFile);
 
         String searchInput = input.getString("Enter the name or number to be searched");
@@ -89,31 +89,4 @@ public class Contacts {
         Files.write(Paths.get("data", "contacts.txt"), emptyList);
     }
 
-    /*bonus addContact*/
-//    public static void addContact() throws IOException {
-//        String name = input.getString("Enter contact name");
-//        String number = input.getString("Enter contact phone number");
-//
-//        List<String> contactList = Files.readAllLines(contactFile);
-//        List<String> newList = new ArrayList<>();
-//
-//        for (String person : contactList) {
-//            if (person.toLowerCase().contains(name.toLowerCase()) || person.toLowerCase().contains(number.toLowerCase())) {
-//                System.out.println(person + ", already exists. Would you like to overwrite? (y/n)");
-//                if (input.yesNo()) {
-//                    newList.add("cream");
-//                    continue;
-//                } else {
-//                    System.out.println("No changes made to contact list");
-//                }
-//            }
-//            newList.add(person);
-//        }
-//
-//        Files.write(
-//                contactFile,
-//                Arrays.asList(name + " | " + number),
-//                StandardOpenOption.APPEND
-//        );
-//    }
 }
