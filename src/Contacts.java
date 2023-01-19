@@ -51,26 +51,26 @@ public class Contacts {
         String name = input.getString("Enter contact name");
         String number = input.getString("Enter contact phone number");
 
+        ////https://howtodoinjava.com/java/string/format-phone-number/
+        String formattedNumber = number.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3");
+
         Files.write(
                 contactFile,
-                Arrays.asList(name + " | " + number),
+                Arrays.asList(name + " | " + formattedNumber),
                 StandardOpenOption.APPEND
         );
 
-        Contacts newContact = new Contacts(name, number);
+        Contacts newContact = new Contacts(name, formattedNumber);
         System.out.println("newContact = " + newContact);
     }
 
-    public static void findContact() throws IOException {
+    public static String findContact() throws IOException {
         List<String> contactList = Files.readAllLines(contactFile);
 
         String searchInput = input.getString("Enter the name or number to be searched");
         for (String person : contactList) {
             if (person.toLowerCase().contains(searchInput.toLowerCase())) {
                 System.out.println("Contact: " + person);
-            } else {
-                /*how to not make this fire off 4x and after true statement*/
-                System.out.println("No such person exist in my world.\n");
             }
         }
     }
